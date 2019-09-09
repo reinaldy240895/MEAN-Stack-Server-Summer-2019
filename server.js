@@ -1,37 +1,46 @@
-var express = require('express')
-require('dotenv').config()
-var bodyParser = require('body-parser')
+const express = require('express')
+const dotenv = require('dotenv')
+const path = require('path')
+const cors = require('cors')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
-var CONTACTS_COLLECTION = 'contacts'
+const CONTACTS_COLLECTION = 'contacts'
 
-var app = express()
+const app = express()
+
+dotenv.config()
+
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+app.use(cors())
+// configure app to serve static (Angular) files from public folder
+app.use(express.static(path.join(__dirname, 'public'))) // learn this more
 
-// Create link to Angular build directory
-var distDir = __dirname + '/public/'
-app.use(express.static(distDir))
+app.use('/products', product)
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db
+let db
 
 // Connect to the database before starting the application server.
-mongoose.connect(process.env.MONGODB_URI || DB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true
-}, function (err, client) {
+}, (err, client) => {
   if (err) {
-    console.log(err)
+    console.error(err)
     process.exit(1)
   }
 
   // Save database object from the callback for reuse.
   db = mongoose.connection
-  console.log('Database connection ready')
+  console.log('MongoDB connected successfully!')
 
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port
-    console.log('App now running on port', port)
+  const server = app.listen(process.env.PORT || 3000, () => {
+    const port = server.address().port
+    console.log(`Server is up and running on port ${port}!`)
   })
 })
 
@@ -61,7 +70,7 @@ app.get('/api/contacts', function (req, res) {
 })
 
 app.post('/api/contacts', function (req, res) {
-  var newContact = req.body
+  const newContact = req.body
   newContact.createDate = new Date()
 
   if (!req.body.name) {
@@ -96,7 +105,7 @@ app.get('/api/contacts/:id', function (req, res) {
 })
 
 app.put('/api/contacts/:id', function (req, res) {
-  var updateDoc = req.body
+  const updateDoc = req.body
   delete updateDoc._id
 
   db.collection(CONTACTS_COLLECTION).updateOne({
