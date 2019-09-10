@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     min: 5,
     max: 50
   },
@@ -25,6 +26,8 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 1024
   }
+}, {
+  timestamps: true
 })
 
 module.exports = mongoose.model('User', userSchema)
