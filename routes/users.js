@@ -32,7 +32,8 @@ router.post('/register', (req, resp) => {
           user.password = hash
           user.save((err, user) => {
             if (err)
-              handleError(resp, 'Could not create new user', 400)
+              handleError(resp, err, 400)
+            // handleError(resp, 'Could not create new user', 400)
             resp.status(200).json(user)
           })
         })
