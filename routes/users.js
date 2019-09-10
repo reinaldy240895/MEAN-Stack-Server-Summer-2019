@@ -9,37 +9,36 @@ const router = express.Router()
 // @desc Register user
 // @access Public
 router.post('/register', (req, resp) => {
-  let user
   User.findOne({
     email: req.body.email
   }).then(user => {
     if (user) {
       handleError(resp, 'Email already exists', 400)
     } else {
-      user = new User({
+      const user = new User({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
         password: req.body.password
       })
+
+      // Hash password before saving in database
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err)
+          handleError(resp, err)
+        bcrypt.hash(user.password, salt, (err, hash) => {
+          if (err)
+            handleError(resp, err)
+          user.password = hash
+          user.save((err, user) => {
+            if (err)
+              handleError(resp, 'Could not create new user', 400)
+            resp.status(200).json(user)
+          })
+        })
+      })
     }
   }).catch(err => handleError(resp, err))
-
-  // Hash password before saving in database
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err)
-      handleError(resp, err)
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err)
-        handleError(resp, err)
-      user.password = hash
-      user.save((err, user) => {
-        if (err)
-          handleError(resp, 'Could not create new user', 400)
-        resp.status(200).json(user)
-      })
-    })
-  })
 })
 
 // @route POST api/users/login
