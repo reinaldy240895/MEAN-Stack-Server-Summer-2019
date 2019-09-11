@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const logger = require('morgan')
 const usersRouter = require('./routes/users')
+const postsRouter = require('./routes/posts')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(logger('dev'))
 app.use(express.static(path.join(__dirname, 'public'))) // learn this more
 
 app.use('/api/users', usersRouter)
+app.use('/api/posts', postsRouter)
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 let db
