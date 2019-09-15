@@ -1,51 +1,51 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const path = require('path')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const logger = require('morgan')
-const usersRouter = require('./routes/users')
-const postsRouter = require('./routes/posts')
+const express = require('express');
+const dotenv = require('dotenv');
+const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const logger = require('morgan');
+const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
-const app = express()
+const app = express();
 
-dotenv.config()
+dotenv.config();
 
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
-}))
-app.use(cors())
-app.use(logger('dev'))
+}));
+app.use(logger('dev'));
 // configure app to serve static (Angular) files from public folder
-app.use(express.static(path.join(__dirname, 'public'))) // learn this more
+app.use(express.static(path.join(__dirname, 'public'))); // learn this more
 
-app.use('/api/users', usersRouter)
-app.use('/api/posts', postsRouter)
+app.use('/api/users', usersRouter);
+app.use('/api/posts', postsRouter);
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-let db
+let db;
 
 // Connect to the database before starting the application server.
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true
 }, (err, client) => {
   if (err) {
-    console.error(err)
-    process.exit(1)
+    console.error(err);
+    process.exit(1);
   }
 
   // Save database object from the callback for reuse.
-  db = mongoose.connection
-  console.log('MongoDB connected successfully!')
+  db = mongoose.connection;
+  console.log('MongoDB connected successfully!');
 
   // Initialize the app.
   const server = app.listen(process.env.PORT || 3000, () => {
-    const port = server.address().port
-    console.log(`Server is up and running on port ${port}!`)
-  })
-})
+    const port = server.address().port;
+    console.log(`Server is up and running on port ${port}!`);
+  });
+});
 
 // // CONTACTS API ROUTES BELOW
 
