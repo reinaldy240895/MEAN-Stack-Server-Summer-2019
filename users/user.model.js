@@ -1,13 +1,13 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  firstname: {
+  firstName: {
     type: String,
     required: true,
     minlength: 1,
     maxlength: 30
   },
-  lastname: {
+  lastName: {
     type: String,
     required: true,
     minlength: 1,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 50
   },
-  password: {
+  passwordHash: {
     type: String,
     required: true,
     minlength: 10,
@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-})
+});
 
-module.exports = mongoose.model('User', userSchema)
+userSchema.set('toJSON', {
+  virtuals: true
+});
+
+module.exports = mongoose.model('User', userSchema);
