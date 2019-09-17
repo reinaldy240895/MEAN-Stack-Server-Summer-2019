@@ -48,7 +48,7 @@ async function create(userParam) {
   if (await User.findOne({
       email: userParam.email
     })) {
-    throw 'Username "' + userParam.email + '" is already taken';
+    throw 'Email "' + userParam.email + '" is already taken';
   }
 
   const user = new User(userParam);
@@ -70,7 +70,7 @@ async function update(id, userParam) {
   if (user.email !== userParam.email && await User.findOne({
       email: userParam.email
     })) {
-    throw 'Username "' + userParam.email + '" is already taken';
+    throw 'Email "' + userParam.email + '" is already taken';
   }
 
   // hash password if it was entered
