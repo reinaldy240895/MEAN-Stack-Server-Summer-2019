@@ -51,12 +51,17 @@ async function create(userParam) {
     throw 'Email "' + userParam.email + '" is already taken';
   }
 
-  const user = new User(userParam);
+  const user = new User({
+    firstname: userParam.firstname,
+    lastname: userParam.lastname,
+    email: userParam.email,
+    hash: userParam.password
+  });
 
   // hash password
-  if (userParam.password) {
-    user.hash = bcrypt.hashSync(userParam.password, 10);
-  }
+  // if (userParam.password) {
+  user.hash = bcrypt.hashSync(userParam.password, 10);
+  // }
 
   // save user
   await user.save();
@@ -79,6 +84,7 @@ async function update(id, userParam) {
   }
 
   // copy userParam properties to user
+  // TODO: Check if working properly
   Object.assign(user, userParam);
 
   await user.save();
