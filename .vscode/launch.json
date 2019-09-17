@@ -11,6 +11,10 @@
     "program": "${workspaceFolder}/server.js",
     "restart": true,
     "console": "integratedTerminal",
+    "skipFiles": [
+      "<node_internals>/**",
+      "node_modules/**"
+    ],
     "internalConsoleOptions": "neverOpen"
   }]
 }
