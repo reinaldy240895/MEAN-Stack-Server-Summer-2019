@@ -22,6 +22,13 @@ function errorHandler(err, req, res, next) {
     });
   }
 
+  if (!err.message) {
+    // custom error from /validation/{register.js | login.js}
+    return res.status(400).json({
+      message: err
+    });
+  }
+
   // default to 500 server error
   return res.status(500).json({
     message: err.message

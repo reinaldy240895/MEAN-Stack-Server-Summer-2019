@@ -1,6 +1,10 @@
 const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+// Load input validation
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
+
 const db = require('../_helpers/db');
 const User = db.User;
 
@@ -44,12 +48,27 @@ async function getById(id) {
 }
 
 async function create(userParam) {
+  const {
+    errors,
+    isValid
+  } = validateRegisterInput(userParam)
+
+  // Check validation
+  if (!isValid) {
+    throw errors;
+  }
+
   // validate
   if (await User.findOne({
       email: userParam.email
     })) {
     throw 'Email "' + userParam.email + '" is already taken';
   }
+
+  // if (userParam.password !== userParam.password2) {
+  //   // "verify password" failed
+  //   throw 'Passwords do not match';
+  // }
 
   const user = new User({
     firstname: userParam.firstname,
