@@ -21,6 +21,18 @@ async function authenticate({
   email,
   password
 }) {
+  const {
+    errors,
+    isValid
+  } = validateLoginInput({
+    email,
+    password
+  });
+  // Check validation
+  if (!isValid) {
+    throw errors;
+  }
+
   const user = await User.findOne({
     email
   });
@@ -36,6 +48,8 @@ async function authenticate({
       ...userWithoutHash,
       token
     };
+  } else {
+    return null;
   }
 }
 
