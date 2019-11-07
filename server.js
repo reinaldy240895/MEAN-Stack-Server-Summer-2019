@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const jwt = require('./_helpers/jwt');
 const errorHandler = require('./_helpers/error-handler');
 const usersRouter = require('./users/users.controller');
+const postsRouter = require('./posts/posts.controller');
 const dotenv = require('dotenv');
 const path = require('path');
 const logger = require('morgan');
@@ -25,6 +26,7 @@ app.use(jwt());
 
 // api routes
 app.use('/api/users', usersRouter);
+app.use('/api/posts', postsRouter);
 
 // global error handler
 app.use(errorHandler);
