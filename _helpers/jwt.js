@@ -1,11 +1,13 @@
 const expressJwt = require('express-jwt');
 const config = require('../config.json');
 const userService = require('../users/user.service');
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = jwt;
 
 function jwt() {
-  const secret = config.secret;
+  const secret = process.env.SECRET_KEY || config.SECRET_KEY;
   return expressJwt({
     secret,
     isRevoked
