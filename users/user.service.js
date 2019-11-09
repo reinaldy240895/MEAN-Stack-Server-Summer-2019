@@ -1,4 +1,5 @@
 const config = require('../config.json');
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 // Load input validation
@@ -41,9 +42,12 @@ async function authenticate({
       hash,
       ...userWithoutHash
     } = user.toObject();
+    // Should use async callback?
     const token = jwt.sign({
       sub: user.id
-    }, config.secret);
+    }, process.env.SECRET_KEY || config.SECRET_KEY, {
+      expiresIn: 3600 // expires in an hour
+    });
     return {
       ...userWithoutHash,
       token
@@ -88,7 +92,7 @@ async function create(userParam) {
     firstname: userParam.firstname,
     lastname: userParam.lastname,
     email: userParam.email,
-    hash: userParam.password
+    hash: ''
   });
 
   // hash password
