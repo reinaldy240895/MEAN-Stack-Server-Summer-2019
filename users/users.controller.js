@@ -15,7 +15,7 @@ module.exports = router;
 
 function authenticate(req, res, next) {
   userService.authenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json({
+    .then(userToken => userToken ? res.json(userToken) : res.status(400).json({
       message: 'Username or password is incorrect'
     }))
     .catch(err => next(err));
@@ -24,7 +24,7 @@ function authenticate(req, res, next) {
 function register(req, res, next) {
   userService.create(req.body)
     // .then(() => res.json({}))
-    .then((user) => res.json(user))
+    .then(() => res.sendStatus(200))
     .catch(err => next(err));
 }
 
