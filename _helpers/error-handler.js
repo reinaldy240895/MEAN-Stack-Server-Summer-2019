@@ -1,6 +1,12 @@
 module.exports = errorHandler;
 
 function errorHandler(err, req, res, next) {
+  // console.error(err.stack);
+  // if (res.headersSent) {
+  //   return next(err);
+  // }
+  // res.status(500).send(JSON.stringify(err));
+
   if (typeof (err) === 'string') {
     // custom application error
     return res.status(400).json({
