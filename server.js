@@ -2,6 +2,7 @@ require('rootpath')();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const jwt = require('./_helpers/jwt');
 const errorHandler = require('./_helpers/error-handler');
 const usersRouter = require('./users/users.controller');
@@ -28,11 +29,12 @@ app.use(jwt());
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter);
 
-// global error handler
-app.use(errorHandler);
-
 // configure app to serve static (Angular) files from public folder
 app.use(express.static(path.join(__dirname, 'public'))); // learn this more
+
+app.use(methodOverride());
+// global error handler
+app.use(errorHandler);
 
 // start server
 const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 3000;
