@@ -1,7 +1,7 @@
 module.exports = errorHandler;
 
 function errorHandler(err, req, res, next) {
-  // console.error(err.stack);
+  // console.error(err.stack.split('\n')[0], '\n\t', err.stack.split('\n')[1]); // Show only first line of stack trace
   // if (res.headersSent) {
   //   return next(err);
   // }
@@ -9,36 +9,30 @@ function errorHandler(err, req, res, next) {
 
   if (typeof (err) === 'string') {
     // custom application error
-    return res.status(400).json({
+    res.status(400).json({
       message: err
     });
-  }
-
-  if (err.name === 'ValidationError') {
+  } else if (err.name === 'ValidationError') {
     // mongoose validation error
-    return res.status(400).json({
+    res.status(400).json({
+      message: err.message
+    });
+  } else if (err.name === 'UnauthorizedError') {
+    // jwt authentication error
+    res.status(401).json({
+      message: 'Invalid Token'
+    });
+  } else if (!err.message) {
+    // custom error from /validation/{register.js | login.js}
+    res.status(400).json({
+      message: err
+    });
+  } else {
+    // default to 500 server error
+    res.status(500).json({
       message: err.message
     });
   }
-
-  if (err.name === 'UnauthorizedError') {
-    // jwt authentication error
-    return res.status(401).json({
-      message: 'Invalid Token'
-    });
-  }
-
-  if (!err.message) {
-    // custom error from /validation/{register.js | login.js}
-    return res.status(400).json({
-      message: err
-    });
-  }
-
-  // default to 500 server error
-  return res.status(500).json({
-    message: err.message
-  });
 }
 
 
