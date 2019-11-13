@@ -10,17 +10,16 @@ module.exports = {
 };
 
 async function getAll() {
-  // return await Post.find().select('-hash');
   return await Post.find();
 }
 
 async function getById(id) {
-  // return await Post.findById(id).select('-hash');
   return await Post.findById(id);
 }
 
 async function create(postParam) {
   const post = new Post({
+    author: postParam.author,
     title: postParam.title,
     body: postParam.body
   });
@@ -33,22 +32,6 @@ async function update(id, postParam) {
   await Post.findByIdAndUpdate(id, {
     $set: postParam
   });
-
-  // const post = await Post.findById(id);
-
-  // // validate
-  // if (!post) throw 'Post not found';
-  // if (post.email !== postParam.email && await Post.findOne({
-  //     email: postParam.email
-  //   })) {
-  //   throw 'Email "' + postParam.email + '" is already taken';
-  // }
-
-  // // copy postParam properties to post
-  // // TODO: Check if working properly
-  // Object.assign(post, postParam);
-
-  // await post.save();
 }
 
 async function _delete(id) {
