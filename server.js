@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const jwt = require('./_helpers/jwt');
 const errorHandler = require('./_helpers/error-handler');
 const usersRouter = require('./users/users.controller');
 const postsRouter = require('./posts/posts.controller');
@@ -23,7 +22,8 @@ app.use(cors());
 app.use(logger('dev'));
 
 // use JWT auth to secure the api
-app.use(jwt());
+// TODO: Implement jwt with jsonwebtoken
+// app.use(jwt());
 
 // api routes
 app.use('/api/users', usersRouter);
