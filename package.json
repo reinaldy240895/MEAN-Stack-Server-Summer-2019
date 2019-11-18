@@ -1,14 +1,25 @@
 {
   "name": "mean-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "MEAN stack server implementation",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon server.js"
   },
-  "author": "June Shim",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j-shim/MEAN-Stack-Server-Summer-2019"
+  },
+  "keywords": [
+    "MEAN",
+    "MongoDB",
+    "Express",
+    "Angular",
+    "Node"
+  ],
+  "author": "June Joo-Young Shim",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
