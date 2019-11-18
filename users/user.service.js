@@ -32,6 +32,7 @@ async function authenticate({
   // Check validation
   if (!isValid) {
     throw errors;
+    // throw new Error(errors);
   }
 
   const user = await User.findOne({
@@ -44,7 +45,7 @@ async function authenticate({
     } = user.toObject();
     // Should use async callback?
     const token = jwt.sign({
-      sub: user.id
+      data: user.id
     }, process.env.SECRET_KEY || config.SECRET_KEY, {
       expiresIn: 3600 // expires in an hour
     });
@@ -74,6 +75,7 @@ async function create(userParam) {
   // Check validation
   if (!isValid) {
     throw errors;
+    // throw new Error(JSON.stringify(errors));
   }
 
   // validate
@@ -81,6 +83,7 @@ async function create(userParam) {
       email: userParam.email
     })) {
     throw 'Email "' + userParam.email + '" is already taken';
+    // throw new Error('Email "' + userParam.email + '" is already taken');
   }
 
   // if (userParam.password !== userParam.password2) {
@@ -108,11 +111,14 @@ async function update(id, userParam) {
   const user = await User.findById(id);
 
   // validate
-  if (!user) throw 'User not found';
+  if (!user)
+    throw 'User not found';
+    // throw new Error('User not found');
   if (user.email !== userParam.email && await User.findOne({
       email: userParam.email
     })) {
     throw 'Email "' + userParam.email + '" is already taken';
+    // throw new Error('Email "' + userParam.email + '" is already taken');
   }
 
   // hash password if it was entered
