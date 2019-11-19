@@ -1,6 +1,10 @@
 {
   "name": "mean-server",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=12.13.0",
+    "npm": ">=6.13.1"
+  },
   "description": "MEAN stack server implementation",
   "main": "server.js",
   "scripts": {
@@ -18,7 +22,7 @@
     "Angular",
     "Node"
   ],
-  "author": "June Joo-Young Shim",
+  "author": "June Joo-Young Shim <jys2@sfu.ca> (https://github.com/j-shim)",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
