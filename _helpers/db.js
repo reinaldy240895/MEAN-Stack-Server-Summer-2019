@@ -1,9 +1,8 @@
-const config = require('config.json');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
-mongoose.connect(process.env.MONGODB_URI || config.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useNewUrlParser: true

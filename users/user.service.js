@@ -1,4 +1,3 @@
-const config = require('../config.json');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -46,7 +45,7 @@ async function authenticate({
     // Should use async callback?
     const token = jwt.sign({
       data: user.id
-    }, process.env.SECRET_KEY || config.SECRET_KEY, {
+    }, process.env.SECRET_KEY, {
       expiresIn: 3600 // expires in an hour
     });
     return {
@@ -80,8 +79,8 @@ async function create(userParam) {
 
   // validate
   if (await User.findOne({
-      email: userParam.email
-    })) {
+    email: userParam.email
+  })) {
     throw 'Email "' + userParam.email + '" is already taken';
     // throw new Error('Email "' + userParam.email + '" is already taken');
   }
@@ -113,10 +112,10 @@ async function update(id, userParam) {
   // validate
   if (!user)
     throw 'User not found';
-    // throw new Error('User not found');
+  // throw new Error('User not found');
   if (user.email !== userParam.email && await User.findOne({
-      email: userParam.email
-    })) {
+    email: userParam.email
+  })) {
     throw 'Email "' + userParam.email + '" is already taken';
     // throw new Error('Email "' + userParam.email + '" is already taken');
   }
