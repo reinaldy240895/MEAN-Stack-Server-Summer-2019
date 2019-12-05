@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 require('rootpath')();
 const express = require('express');
 const cors = require('cors');
@@ -6,13 +10,10 @@ const methodOverride = require('method-override');
 const errorHandler = require('./_helpers/error-handler');
 const usersRouter = require('./users/users.controller');
 const postsRouter = require('./posts/posts.controller');
-const dotenv = require('dotenv');
 const path = require('path');
 const logger = require('morgan');
 
 const app = express();
-
-dotenv.config();
 
 app.use(bodyParser.urlencoded({
   extended: false
