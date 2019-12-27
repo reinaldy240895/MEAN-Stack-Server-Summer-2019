@@ -11,6 +11,7 @@ const errorHandler = require('./_helpers/error-handler');
 const usersRouter = require('./users/users.controller');
 const postsRouter = require('./posts/posts.controller');
 const blogAlertsRouter = require('./blog/blog-alerts');
+const blogPostsRouter = require('./blog/blog-posts');
 const path = require('path');
 const logger = require('morgan');
 
@@ -31,6 +32,7 @@ app.use(logger('dev'));
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter);
 app.use('/api/blogAlerts', blogAlertsRouter);
+app.use('/api/blogPosts', blogPostsRouter);
 
 // configure app to serve static (Angular) files from public folder
 app.use(express.static(path.join(__dirname, 'public'))); // learn this more
