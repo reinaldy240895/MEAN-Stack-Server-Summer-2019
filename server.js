@@ -10,7 +10,7 @@ const methodOverride = require('method-override');
 const errorHandler = require('./_helpers/error-handler');
 const usersRouter = require('./users/users.controller');
 const postsRouter = require('./posts/posts.controller');
-const blogAlertsRouter = require('./blog-alerts/blog-alerts');
+const blogAlertsRouter = require('./blog/blog-alerts');
 const path = require('path');
 const logger = require('morgan');
 

@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
   xhr.onload = function () {
     try {
       // res.send(this.responseText);
-      const blogPostsString = toBlogPostsString(this.responseText);
-      res.send(blogPostsString);
+      const blogAlertsString = toBlogAlertsString(this.responseText);
+      res.send(blogAlertsString);
     } catch (err) {
       errorHandler(err, req, res);
     }
@@ -26,20 +26,20 @@ router.get('/', (req, res) => {
   xhr.send();
 });
 
-function toBlogPostsString(responseText) {
+function toBlogAlertsString(responseText) {
   const dom = new JSDOM(responseText);
   const nodeList = dom.window.document.querySelectorAll('.post .post-back .wrap_blog2_list.wrap_blog2_notice .wrap_td .ell2.pcol2 a.pcol2');
 
-  const blogPosts = [];
+  const blogAlerts = [];
 
   nodeList.forEach(post => {
-    blogPosts.push({
+    blogAlerts.push({
       text: post.textContent,
       link: post.getAttribute('href')
     });
   });
 
-  const returnString = JSON.stringify(blogPosts);
+  const returnString = JSON.stringify(blogAlerts);
   return returnString;
 }
 
