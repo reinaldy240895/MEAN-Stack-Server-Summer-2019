@@ -28,7 +28,7 @@ function sendEmail(req, res) {
     to: 'jys2@sfu.ca',
     // to: req.body.to,
     subject: mailSubject,
-    html: '<p>hi this is a test</p>'
+    html: req.body.htmlString
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
