@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
 
 function sendEmail(req, res) {
   const mailSubject = 'Canorea Inquiry';
+  const mailTo = 'canorea.janice@gmail.com';
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -25,7 +26,7 @@ function sendEmail(req, res) {
 
   const mailOptions = {
     from: process.env.NODEMAILER_USERNAME,
-    to: 'jys2@sfu.ca',
+    to: mailTo,
     // to: req.body.to,
     subject: mailSubject,
     html: req.body.htmlString
