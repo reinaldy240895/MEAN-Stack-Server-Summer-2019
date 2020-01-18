@@ -9,8 +9,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const errorHandler = require('./_helpers/error-handler');
-const usersRouter = require('./users/users.controller');
-const postsRouter = require('./posts/posts.controller');
 const blogAlertsRouter = require('./blog/blog-alerts');
 const blogPostsRouter = require('./blog/blog-posts');
 const mailerRouter = require('./mailer/mailer');
@@ -32,8 +30,6 @@ app.use(logger('dev'));
 // app.use(jwt());
 
 // api routes
-app.use('/api/users', usersRouter);
-app.use('/api/posts', postsRouter);
 app.use('/api/blogAlerts', blogAlertsRouter);
 app.use('/api/blogPosts', blogPostsRouter);
 app.use('/api/mailer', mailerRouter);
