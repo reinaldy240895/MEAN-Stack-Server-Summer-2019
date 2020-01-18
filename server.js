@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 require('rootpath')();
 const express = require('express');
+const helmet = require('helmet');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -18,6 +19,7 @@ const logger = require('morgan');
 
 const app = express();
 
+app.use(helmet());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
