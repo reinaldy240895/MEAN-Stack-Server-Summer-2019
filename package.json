@@ -30,7 +30,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "is-empty": "^1.2.0",
     "jsdom": "^15.2.1",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
@@ -39,7 +38,6 @@
     "nodemailer": "^6.4.2",
     "path": "^0.12.7",
     "rootpath": "^0.1.2",
-    "validator": "^11.1.0",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
