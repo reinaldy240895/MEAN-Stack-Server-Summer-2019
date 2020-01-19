@@ -30,9 +30,9 @@ app.use(logger('dev'));
 // app.use(jwt());
 
 // api routes
-app.use('/api/blogAlerts', blogAlertsRouter);
-app.use('/api/blogPosts', blogPostsRouter);
-app.use('/api/mailer', mailerRouter);
+app.use('/blogAlerts', blogAlertsRouter);
+app.use('/blogPosts', blogPostsRouter);
+app.use('/mailer', mailerRouter);
 
 // configure app to serve static (Angular) files from public folder
 app.use(express.static(path.join(__dirname, 'public'))); // learn this more
