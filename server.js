@@ -31,8 +31,8 @@ app.use(logger('dev'));
 // app.use(jwt());
 
 // api routes
-app.use('/blogAlerts', blogAlertsRouter);
-app.use('/blogPosts', blogPostsRouter);
+app.use('/api/blogAlerts', blogAlertsRouter);
+app.use('/api/blogPosts', blogPostsRouter);
 app.use('/mailer', mailerRouter);
 app.use('/api/reviews', reviewsRouter);
 
