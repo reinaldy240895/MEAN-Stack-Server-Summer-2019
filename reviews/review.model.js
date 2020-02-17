@@ -17,7 +17,7 @@ const reviewSchema = new mongoose.Schema({
   timestamps: true
 });
 
-postSchema.set('toJSON', {
+reviewSchema.set('toJSON', {
   virtuals: true
 });
 

@@ -11,6 +11,7 @@ const methodOverride = require('method-override');
 const errorHandler = require('./_helpers/error-handler');
 const blogAlertsRouter = require('./blog/blog-alerts');
 const blogPostsRouter = require('./blog/blog-posts');
+const reviewsRouter = require('./reviews/reviews.routes');
 const mailerRouter = require('./mailer/mailer');
 const path = require('path');
 const logger = require('morgan');
@@ -33,6 +34,7 @@ app.use(logger('dev'));
 app.use('/blogAlerts', blogAlertsRouter);
 app.use('/blogPosts', blogPostsRouter);
 app.use('/mailer', mailerRouter);
+app.use('/api/reviews', reviewsRouter);
 
 // configure app to serve static (Angular) files from public folder
 app.use(express.static(path.join(__dirname, 'public'))); // learn this more
