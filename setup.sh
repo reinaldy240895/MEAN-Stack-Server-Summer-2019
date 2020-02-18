@@ -18,3 +18,24 @@ sudo apt-get update
 
 # Install the MongoDB packages.
 sudo apt-get install -y mongodb-org
+
+#################
+# Setup Crontab #
+#################
+
+# Copy lines below after running: $ crontab -e
+
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * * command to execute
+
+# Uncomment line below
+# 0 0 * * * sudo /opt/mongo/mongodump.sh
+
+# END OF COPY LINES
