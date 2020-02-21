@@ -70,6 +70,15 @@ sudo ufw --force enable
 # sudo pm2 start server.js
 
 ################################
+# Backend Deployment Checklist #
+################################
+
+# Remove public/
+# Remove /api/ prefix in server.js
+# Run: sudo npm i
+# Update .env
+
+################################
 # Deploy Angular Front-end app #
 ################################
 
