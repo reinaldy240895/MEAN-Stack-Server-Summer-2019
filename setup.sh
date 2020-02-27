@@ -67,7 +67,7 @@ sudo ufw --force enable
 
 # cd /opt/back-end && sudo npm i
 
-# sudo pm2 start server.js
+# sudo pm2 start server.js --time
 
 ################################
 # Backend Deployment Checklist #
@@ -157,3 +157,4 @@ sudo apt install -y mongodb-org
 # 0 0 * * * sudo /opt/mongo/mongodump.sh
 
 # END OF COPY LINES
+
