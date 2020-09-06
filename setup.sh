@@ -101,12 +101,19 @@ echo '
 server {
   charset utf-8;
   listen 80 default_server;
+  # server_name canorea.kr www.canorea.kr;
   server_name _;
 
   # angular app & front-end files
   location / {
     root /opt/front-end;
     try_files $uri /index.html;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
   }
 
   # node api reverse proxy
@@ -118,6 +125,25 @@ server {
 
 # Finally, restart NGINX
 # sudo systemctl restart nginx
+
+#########################################################################
+# HTTPS / SSL with Let's Encrypt                                        #
+# https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx               #
+# https://gist.github.com/bradtraversy/cd90d1ed3c462fe3bddd11bf8953a896 #
+# canorea.kr -> http://13.125.13.69/                                    #
+#########################################################################
+
+# sudo apt remove certbot
+
+# sudo snap install --classic certbot
+
+# sudo certbot --nginx
+# or
+# sudo certbot certonly --nginx
+
+### Test automatic renewal
+
+# sudo certbot renew --dry-run
 
 #######################################################################
 # Install MongoDB Community Edition (Ubuntu)                          #
