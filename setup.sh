@@ -63,7 +63,9 @@ sudo ufw --force enable
 # Deploy Node.js Back-end app #
 ###############################
 
-# sudo git clone <git-repo> /opt/back-end
+# git clone <git-repo> ~/back-end
+
+# sudo mv ~/back-end /opt
 
 # cd /opt/back-end && sudo npm i
 
